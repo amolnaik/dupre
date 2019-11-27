@@ -39,5 +39,5 @@ cd streamlit_test
 streamlit run deduper.py
 ```
 
-## © Copyright
+## Copyright
 See [LICENSE](LICENSE) for details.
