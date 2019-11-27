@@ -41,7 +41,7 @@ streamlit run deduper.py
 
 ## Sample Output
 <p align="center">
-  <img src="Sample_Output.png" width="600" />
+  <img src="Sample_Output.png" width="1200" />
 </p>
 
 ## Copyright
