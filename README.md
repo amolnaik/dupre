@@ -39,5 +39,10 @@ cd streamlit_test
 streamlit run deduper.py
 ```
 
+## Sample Output
+<p align="center">
+  <img src="Sample_Output.png" width="600" />
+</p>
+
 ## Copyright
 See [LICENSE](LICENSE) for details.
