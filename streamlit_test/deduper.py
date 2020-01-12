@@ -8,6 +8,7 @@ from io import StringIO
 import requests
 import sys, io
 from blinker import signal
+from shutil import copy, move
 
 st.title('Image Deduper')
 
@@ -17,7 +18,9 @@ st.title('Image Deduper')
 st.sidebar.title("Setup")
 
 folder_path = st.sidebar.text_input('folder', \
-'/Users/amnaik/Documents/pprojects/pyfindimagedupes/imagededupml/test/')
+'/Users/amnaik/Documents/test/')
+
+destination_path = Path('/Users/amnaik/Documents/to_delete/')
 
 option = st.sidebar.selectbox('Choose algorithm', ('pHash', 'aHash', 'dHash', 'wHash', 'CNN'))
 
@@ -110,17 +113,14 @@ for k, v in duplicates.items():
 
 st.write(img_select)
 
-if len(img_select):
-    summary = ("Found " + str(len(img_select)) + " similar images in total " + str(len(duplicates)) + " images")
-    outcome = st.sidebar.text_area("Summary", summary)
-else:
-    outcome = st.sidebar.text_area("Summary", "")
+
 
 # -----------------------------------------------------------------------------#
 st.subheader("Results")
 i = 0
 img_selected = []
-for k, v in img_select.items():
+to_delete = []
+for k in img_select.keys():
     captions = []
     images = []
     # check if master image not in the similar image
@@ -128,10 +128,34 @@ for k, v in img_select.items():
         i = i+1
         st.write("Record: %d" % (i))
         images.append(str(image_dir) + '/' + k)
+        #copy for deletion
+        copy(str(image_dir) + '/' + k, destination_path)
+        to_delete.append(k)
         captions.append(k)
-        for vi in v:
+        for vi in img_select[k]:
             images.append(str(image_dir) + '/' + vi)
             captions.append(vi)
             img_selected.append(vi)
+            #copy for deletion
+            copy(str(image_dir) + '/' + vi, destination_path)
+            to_delete.append(vi)
 
     st.image(images, caption=captions, width=300)
+
+# -----------------------------------------------------------------------------#
+num_files = len([f for f in os.listdir(folder_path) if f.endswith('.JPG') and os.path.isfile(os.path.join(folder_path, f))])
+
+if len(img_select):
+    summary = ("Found " + str(len(list(set(to_delete)))) + " similar images in total " + str(num_files) + " images")
+    outcome = st.sidebar.text_area("Summary", summary)
+else:
+    outcome = st.sidebar.text_area("Summary", "")
+
+st.subheader("For Deletion")
+deletion_summary = st.write ("These files will be deleted from source folder", list(set(to_delete)))
+
+for k in list(set(to_delete)):
+    if os.path.isfile(str(image_dir) + '/' + k):
+        os.remove(str(image_dir) + '/' + k)
+    else:
+        couldnt_delete = st.write("could not delete file", k)
