@@ -33,7 +33,7 @@ setup(
         'Pillow==6.0.0',
         'PyWavelets==1.0.3',
         'scipy==1.2.1',
-        'tensorflow==2.0.0',
+        'tensorflow==2.5.0',
         'tqdm==4.35.0',
         'scikit-learn==0.21.2',
         'matplotlib==3.1.1',
