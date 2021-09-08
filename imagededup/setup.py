@@ -30,7 +30,7 @@ setup(
     license='Apache 2.0',
     install_requires=[
         'numpy==1.16.3',
-        'Pillow==6.0.0',
+        'Pillow==8.3.2',
         'PyWavelets==1.0.3',
         'scipy==1.2.1',
         'tensorflow==2.0.0',
