@@ -29,7 +29,7 @@ setup(
     long_description=long_description,
     license='Apache 2.0',
     install_requires=[
-        'numpy==1.16.3',
+        'numpy==1.22.0',
         'Pillow==6.0.0',
         'PyWavelets==1.0.3',
         'scipy==1.2.1',
